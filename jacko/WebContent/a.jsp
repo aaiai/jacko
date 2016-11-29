@@ -24,6 +24,7 @@ body {text-align:center; background-image:url("aaa.png"); background-repeat: no-
 </style>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <div class="fr">
 <img src="top.png" width="80%">
 <form action="" method="post">
