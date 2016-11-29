@@ -22,6 +22,7 @@ body {text-align:center; background-image:url("aaa.png"); background-repeat: no-
 .ibox {width: 100%; height: 2em;}
 .login_button {width:80%; height:2em;}
 </style>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
