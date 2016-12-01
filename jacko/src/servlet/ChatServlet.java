@@ -49,7 +49,8 @@ public void event(CometEvent event)
     throws IOException, ServletException {
     HttpServletRequest request = event.getHttpServletRequest();
     HttpServletResponse response = event.getHttpServletResponse();
-
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
     if (event.getEventType() == CometEvent.EventType.BEGIN) {
         PrintWriter writer = response.getWriter();
         writer.println("<!DOCTYPE html>");

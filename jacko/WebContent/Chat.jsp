@@ -1,10 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
-<%
-request.setCharacterEncoding("UTF-8");
-String text=request.getParameter("text");
-if(text!=null){
-}
-%>
 <!DOCTYPE html>
 <html>
 <head>
