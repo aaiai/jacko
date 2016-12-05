@@ -2,6 +2,10 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -24,7 +28,16 @@ protected ArrayList<HttpServletResponse> connections =
     new ArrayList<HttpServletResponse>();
 protected MessageSender messageSender = null;
 
+Connection dbcon;
+
 public void init() throws ServletException {
+    try{
+        Class.forName("com.mysql.jdbc.Driver");
+        dbcon = DriverManager.getConnection("jdbc:mysql://localhost/jacko", "a", "a");
+
+    } catch (Exception e){
+        log(e.getMessage());
+    }
     messageSender = new MessageSender();
     Thread messageSenderThread =
         new Thread(messageSender, "MessageSender[" + getServletContext().getContextPath() + "]");
@@ -52,9 +65,19 @@ public void event(CometEvent event)
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
     if (event.getEventType() == CometEvent.EventType.BEGIN) {
-        PrintWriter writer = response.getWriter();
+	PrintWriter writer = response.getWriter();
+
         writer.println("<!DOCTYPE html>");
         writer.println("<head><title>JSP Chat</title></head><body>");
+        try{
+            PreparedStatement dbst = dbcon.prepareStatement("select message from(select message,time from chatlog order by time desc limit 10) a order by time;");
+            ResultSet dbrs= dbst.executeQuery();
+            while(dbrs.next()){
+                writer.println(dbrs.getString("message")+"<br>");
+            }
+        }catch(Exception e){
+            log(e.getMessage());
+        }
         writer.flush();
         synchronized(connections) {
             connections.add(response);
@@ -76,6 +99,9 @@ public void event(CometEvent event)
         String message = request.getParameter("message");
         try{
             if(user.length()>0&&message.length()>0){
+                PreparedStatement dbst = dbcon.prepareStatement("insert into chatlog(message) values(?)");
+                dbst.setString(1, "["+user+"]"+message);
+                dbst.executeUpdate();
                 messageSender.send(user, message);
                 user=null;
                 message=null;
@@ -102,6 +128,7 @@ public class MessageSender implements Runnable {
      */
     public void send(String user, String message) {
         synchronized (messages) {
+            log("[" + user + "]: " + message);
             messages.add("[" + user + "]: " + message);
             messages.notify();
         }
