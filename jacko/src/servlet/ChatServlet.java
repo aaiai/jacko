@@ -36,7 +36,7 @@ public void init() throws ServletException {
         dbcon = DriverManager.getConnection("jdbc:mysql://localhost/jacko", "a", "a");
 
     } catch (Exception e){
-        log(e.getMessage());
+        log("a"+e.getMessage());
     }
     messageSender = new MessageSender();
     Thread messageSenderThread =
@@ -76,7 +76,7 @@ public void event(CometEvent event)
                 writer.println(dbrs.getString("message")+"<br>");
             }
         }catch(Exception e){
-            log(e.getMessage());
+            log("b"+e.getMessage());
         }
         writer.flush();
         synchronized(connections) {
@@ -97,6 +97,7 @@ public void event(CometEvent event)
     } else if (event.getEventType() == CometEvent.EventType.READ) {
         String user = request.getParameter("user");
         String message = request.getParameter("message");
+        log("["+user+"]"+message);
         try{
             if(user.length()>0&&message.length()>0){
                 PreparedStatement dbst = dbcon.prepareStatement("insert into chatlog(message) values(?)");
@@ -107,7 +108,7 @@ public void event(CometEvent event)
                 message=null;
             }
         }catch(Exception e){
-            log(e.getMessage());
+            log("c"+e.getMessage());
         }
     }
 }
