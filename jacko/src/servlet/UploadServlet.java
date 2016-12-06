@@ -19,7 +19,8 @@ public class UploadServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         for(Part part:request.getParts()){
-             String name = this.getFileName(part);
+            log(String.valueOf(part.getSize()));
+            String name = this.getFileName(part);
             part.write("/uploaded" + "/" + name);
         }
     }

@@ -36,7 +36,7 @@ public void init() throws ServletException {
         dbcon = DriverManager.getConnection("jdbc:mysql://localhost/jacko", "a", "a");
 
     } catch (Exception e){
-        log("a"+e.getMessage());
+        log(e.getMessage());
     }
     messageSender = new MessageSender();
     Thread messageSenderThread =
@@ -76,7 +76,7 @@ public void event(CometEvent event)
                 writer.println(dbrs.getString("message")+"<br>");
             }
         }catch(Exception e){
-            log("b"+e.getMessage());
+            log(e.getMessage());
         }
         writer.flush();
         synchronized(connections) {
@@ -108,7 +108,7 @@ public void event(CometEvent event)
                 message=null;
             }
         }catch(Exception e){
-            log("c"+e.getMessage());
+            log(e.getMessage());
         }
     }
 }
