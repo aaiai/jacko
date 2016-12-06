@@ -16,18 +16,17 @@ iframe{
     position:absolute;
 }
 </style>
+<script type="text/javascript" src="ChatSend.js"></script>
 </head>
 <body>
 <iframe src="ChatServlet" name="chat"></iframe>
 <div id="dropzone"></div>
 <script type="text/javascript" src="Upload.js"></script>
-<iframe src="ChatServlet" name="hiddenChat" hidden></iframe>
-<form method="post" action="ChatServlet" target="hiddenChat">
+<form method="post">
 <input type="text" name="user">
 <input type="text" name="message">
-<input type="submit">
+<input type="button" value="送信" onclick="post(user.value,message.value)">
 </form>
-
 </body>
 </html
 >
