@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -28,8 +27,7 @@ public class UploadServlet extends HttpServlet {
     public void init() throws ServletException {
         log("uploadservlet initializing");
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            dbcon = DriverManager.getConnection("jdbc:mysql://localhost/jacko", "a", "a");
+            dbcon = DbCon.con();
         } catch (Exception e){
            log("error:"+e.getMessage());
         }

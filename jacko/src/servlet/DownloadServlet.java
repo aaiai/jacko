@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +20,7 @@ public class DownloadServlet extends HttpServlet {
     public void init() throws ServletException {
         log("uploadservlet initializing");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            dbcon = DriverManager.getConnection("jdbc:mysql://localhost/jacko", "a", "a");
+            dbcon = DbCon.con();
         } catch (Exception e) {
             log(e.getMessage());
         }

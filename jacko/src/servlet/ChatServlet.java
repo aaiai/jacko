@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -33,8 +32,7 @@ Connection dbcon;
 public void init() throws ServletException {
     log("chatservlet initializing");
     try{
-        Class.forName("com.mysql.jdbc.Driver");
-        dbcon = DriverManager.getConnection("jdbc:mysql://localhost/jacko", "a", "a");
+        dbcon = DbCon.con();
     } catch (Exception e){
         log("error:"+e.getMessage());
     }

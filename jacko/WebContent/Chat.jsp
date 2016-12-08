@@ -20,6 +20,6 @@ iframe{
 <input type="text" name="message">
 <input type="button" value="送信" onclick="post(user.value,message.value)">
 </form>
-<button onclick="download(1,'aa.txt',0)">aa.txt</button>
+<button onclick="location.reload()">更新</button>
 </body>
 </html>
