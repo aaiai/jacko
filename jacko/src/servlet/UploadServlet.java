@@ -18,7 +18,7 @@ import javax.servlet.http.Part;
  * Servlet implementation class UploadServlet
  */
 @WebServlet("/UploadServlet")
-@MultipartConfig(location="/tmp",maxFileSize=1048576)
+@MultipartConfig(maxFileSize=1048576)
 
 
 public class UploadServlet extends HttpServlet {
@@ -36,7 +36,6 @@ public class UploadServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         for(Part part:request.getParts()){
             log(String.valueOf(part.getSize()));
             String name = this.getFileName(part);
@@ -52,7 +51,7 @@ public class UploadServlet extends HttpServlet {
                 dbst.setString(2, name);
                 dbst.setInt(3, sub);
                 dbst.executeUpdate();
-                part.write("/uploaded" + "/" + 1 +"_" + sub + "_" + name);
+                part.write(getServletContext().getRealPath("/uploaded/" + 1 +"_" + sub + "_" + name));
             }catch(Exception e){
                 log("error:"+e.getMessage());
             }

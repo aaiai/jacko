@@ -68,7 +68,10 @@ public void event(CometEvent event)
 	PrintWriter writer = response.getWriter();
 
         writer.println("<!DOCTYPE html>");
-        writer.println("<head><title>JSP Chat</title></head><body>");
+        writer.println("<head><title>Chat</title><meta charset='UTF-8'>");
+        writer.println("<style>#dropzone{width:100%;height:100%;top:0px;position:absolute;}</style></head>");
+        writer.println("<body><div id='dropzone'>");
+        writer.println("<script type='text/javascript' src='Upload.js'>aaaaaaa</script>");
         try{
             PreparedStatement dbst = dbcon.prepareStatement("select message from(select message,time from chatlog order by time desc limit 10) a order by time;");
             ResultSet dbrs= dbst.executeQuery();
@@ -92,7 +95,7 @@ public void event(CometEvent event)
             connections.remove(response);
         }
         PrintWriter writer = response.getWriter();
-        writer.println("</body></html>");
+        writer.println("</div></body></html>");
         event.close();
     } else if (event.getEventType() == CometEvent.EventType.READ) {
         String user = request.getParameter("user");
