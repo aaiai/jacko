@@ -5,13 +5,9 @@ function handleFileSelect(e) {
     var fd = new FormData();
     for(var i = 0; i< files.length;i++){
         fd.append("files", files[i])
-        req = new XMLHttpRequest();
-        req.open("post","ChatServlet",true);
-        req.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-        req.send("user=file&message=<button onclick=\"download(1,'"+files[i].name+"',0)\">"+files[i].name+"</button>");
     }
     req = new XMLHttpRequest();
-    req.open("post","UploadServlet",true);
+    req.open("post","ChatServlet",true);
     req.send(fd);
 }
 function handleDragOver(e) {

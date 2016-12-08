@@ -4,5 +4,3 @@ function download(gid,name,sub){
     req.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
     req.send("gid="+gid+"name="+name+"sub="+sub);
 }
-
-alert(2)
