@@ -19,6 +19,12 @@ function handleFileSelect(e) {
         nameinput.setAttribute("value",files[i].name);
         form.appendChild(nameinput);
 
+        gidinput=document.createElement("input");
+        gidinput.setAttribute("type","hidden")
+        gidinput.setAttribute("name","gid");
+        gidinput.setAttribute("value",gid);
+        form.appendChild(gidinput);
+
         form.setAttribute("method","post");
         form.setAttribute("action","ChatServlet");
         form.setAttribute("target","hiddenchat");
@@ -26,6 +32,7 @@ function handleFileSelect(e) {
     }
     req = new XMLHttpRequest();
     req.open("post","UploadServlet",true);
+    req.setRequestHeader("gid",gid);
     req.send(fd);
 }
 function handleDragOver(e) {

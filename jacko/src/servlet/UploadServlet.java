@@ -34,21 +34,22 @@ public class UploadServlet extends HttpServlet {
         for(Part part:request.getParts()){
             log(String.valueOf(part.getSize()));
             String name = this.getFileName(part);
+            String gid=request.getHeader("gid");
             log(name);
             try{
                 PreparedStatement dbst = dbcon.prepareStatement("select max(sub)+1 from file where gid=? and name=?");
-                dbst.setInt(1, 1);
+                dbst.setString(1, gid);
                 dbst.setString(2,name);
                 ResultSet dbrs= dbst.executeQuery();
                 dbrs.next();
                 int sub = dbrs.getInt(1);
                 dbst = dbcon.prepareStatement("insert into file(gid,name,sub)values(?,?,?)");
-                dbst.setInt(1, 1);
+                dbst.setString(1, gid);
                 dbst.setString(2, name);
                 dbst.setInt(3, sub);
                 dbst.executeUpdate();
-                log(getServletContext().getRealPath("/uploaded/" + 1 +"_" + sub + "_" + name));
-                part.write(getServletContext().getRealPath("/uploaded/" + 1 +"_" + sub + "_" + name));
+                log(getServletContext().getRealPath("/uploaded/" + gid +"_" + sub + "_" + name));
+                part.write(getServletContext().getRealPath("/uploaded/" + gid +"_" + sub + "_" + name));
                 //messageSender.send("file","<button onclick=\"download(1,'"+name+"',"+sub+")\">"+name+"</button>");
             }catch(Exception e){
                 log("error:"+e.getMessage());

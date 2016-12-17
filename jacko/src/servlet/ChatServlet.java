@@ -67,16 +67,18 @@ public void event(CometEvent event)
     response.setCharacterEncoding("UTF-8");
     log(event.getEventType().toString());
     if (event.getEventType() == CometEvent.EventType.BEGIN) {
-        PrintWriter writer = response.getWriter();
-        writer.println("<!DOCTYPE html>");
-        writer.println("<head><title>Chat</title><meta charset='UTF-8'>");
-        writer.println("<style>#dropzone{width:100%;height:100%;top:0px;position:absolute;}</style></head>");
-        writer.println("<body><div id='dropzone'>");
-        writer.println("<script type='text/javascript' src='Upload.js'>aaaaaaa</script>");
         int gid=0;
         if(request.getMethod().equals("GET")){
             gid=Integer.valueOf(request.getParameter("gid"));
         }
+        PrintWriter writer = response.getWriter();
+        writer.println("<!DOCTYPE html>");
+        writer.println("<head><title>Chat</title><meta charset='UTF-8'>");
+        writer.println("<style>#dropzone{width:100%;height:100%;top:0px;position:absolute;}</style></head>");
+        writer.println("<script>gid="+gid+"</script>");
+        writer.println("<body><div id='dropzone'>");
+        writer.println("<script type='text/javascript' src='Upload.js'>aaaaaaa</script>");
+
         synchronized(connections) {
             connections.put(response,gid);
         }
