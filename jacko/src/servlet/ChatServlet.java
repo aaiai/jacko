@@ -77,7 +77,7 @@ public void event(CometEvent event)
         writer.println("<style>#dropzone{width:100%;height:100%;top:0px;position:absolute;}</style></head>");
         writer.println("<script>gid="+gid+"</script>");
         writer.println("<body><div id='dropzone'>");
-        writer.println("<script type='text/javascript' src='Upload.js'>aaaaaaa</script>");
+        writer.println("<script type='text/javascript' src='Upload.js'></script>");
 
         synchronized(connections) {
             connections.put(response,gid);
